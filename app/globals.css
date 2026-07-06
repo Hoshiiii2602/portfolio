@@ -15,8 +15,9 @@ html {
 }
 
 body {
-  background-color: #060b14;
+  background-color: #040810;
   color: #cbd5e1;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -24,27 +25,7 @@ body {
   color: #fff;
 }
 
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-up {
-  animation: fade-up 0.8s ease-out forwards;
-}
-
-.animation-delay-200 {
-  animation-delay: 200ms;
-  opacity: 0;
-}
-
-/* Subtle grid background */
+/* ── Background layers ── */
 body::before {
   content: "";
   position: fixed;
@@ -55,23 +36,267 @@ body::before {
   background-size: 64px 64px;
   mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
   pointer-events: none;
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 20%, rgba(6, 182, 212, 0.08), transparent),
+    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(139, 92, 246, 0.08), transparent),
+    radial-gradient(ellipse 40% 30% at 60% 10%, rgba(244, 63, 94, 0.04), transparent);
+  pointer-events: none;
   z-index: -1;
+  animation: aurora-drift 20s ease-in-out infinite alternate;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
+/* ── Diagonal line pattern ── */
+.diagonal-lines {
+  background-image: repeating-linear-gradient(
+    -55deg,
+    transparent,
+    transparent 60px,
+    rgba(255, 255, 255, 0.02) 60px,
+    rgba(255, 255, 255, 0.02) 61px
+  );
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 40%, black 15%, transparent 80%);
 }
 
-::-webkit-scrollbar-track {
-  background: #060b14;
+.diagonal-lines-alt {
+  background-image: repeating-linear-gradient(
+    35deg,
+    transparent,
+    transparent 100px,
+    rgba(6, 182, 212, 0.012) 100px,
+    rgba(6, 182, 212, 0.012) 101px
+  );
+  mask-image: radial-gradient(ellipse 80% 70% at 60% 50%, black 10%, transparent 75%);
 }
 
+.diagonal-accent {
+  mask-image: linear-gradient(to bottom, black, transparent);
+}
+
+/* ── Keyframes ── */
+@keyframes aurora-drift {
+  0% { opacity: 0.6; transform: translate(0, 0) scale(1); }
+  50% { opacity: 1; transform: translate(-2%, 1%) scale(1.02); }
+  100% { opacity: 0.7; transform: translate(1%, -1%) scale(1.01); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.35); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes border-glow {
+  0%, 100% { border-color: rgba(6, 182, 212, 0.2); }
+  50% { border-color: rgba(139, 92, 246, 0.4); }
+}
+
+/* ── Utility classes ── */
+.animate-fade-up {
+  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animation-delay-200 { animation-delay: 200ms; opacity: 0; }
+.animation-delay-400 { animation-delay: 400ms; opacity: 0; }
+.animation-delay-600 { animation-delay: 600ms; opacity: 0; }
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-float-delayed { animation: float 6s ease-in-out 2s infinite; }
+.animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 20s linear infinite; }
+.animate-border-glow { animation: border-glow 3s ease-in-out infinite; }
+
+/* ── Gradient text ── */
+.gradient-text {
+  background: linear-gradient(135deg, #22d3ee, #e2e8f0, #a78bfa, #22d3ee);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.animate-gradient-shift {
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* ── Name linear gradient ── */
+.name-gradient {
+  background: linear-gradient(
+    120deg,
+    #22d3ee 0%,
+    #38bdf8 15%,
+    #f472b6 35%,
+    #ef4444 50%,
+    #c084fc 70%,
+    #34d399 90%,
+    #22d3ee 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* ── Shimmer title ── */
+.shimmer-title {
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(
+    90deg,
+    #fff 0%,
+    #22d3ee 25%,
+    #fff 50%,
+    #a78bfa 75%,
+    #fff 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ── Typewriter ── */
+.typewriter-text {
+  color: #22d3ee;
+  font-weight: 600;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: #a78bfa;
+  animation: blink 1s step-end infinite;
+}
+
+/* ── Scroll reveal ── */
+.reveal {
+  opacity: 0;
+  will-change: opacity, transform, filter;
+  transition:
+    opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-up {
+  transform: translateY(48px);
+  filter: blur(6px);
+}
+
+.reveal-left {
+  transform: translateX(-48px);
+  filter: blur(6px);
+}
+
+.reveal-right {
+  transform: translateX(48px);
+  filter: blur(6px);
+}
+
+.reveal-scale {
+  transform: scale(0.94);
+  filter: blur(4px);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translate(0) scale(1);
+  filter: blur(0);
+}
+
+/* ── Glass card ── */
+.glass-card {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+  backdrop-filter: blur(12px);
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(6, 182, 212, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(6, 182, 212, 0.05);
+}
+
+/* ── Skill marquee ── */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── Orb decorations ── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #040810; }
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
 }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; filter: none; }
 }

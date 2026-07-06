@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, Syne } from "next/font/google";
+import { LanguageProvider } from "@/components/LanguageProvider";
 import "./globals.css";
 
 const syne = Syne({
@@ -15,22 +16,28 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Nguyen Xuan Trong | Mobile Developer",
+  title: "Nguyễn Xuân Trọng | Mobile Developer",
   description:
-    "Mobile Developer specializing in Flutter and React Native. Experienced in Fintech applications, realtime data, and high-performance mobile products.",
+    "Mobile Developer chuyên Flutter và React Native. Kinh nghiệm Fintech, dữ liệu realtime và sản phẩm mobile hiệu năng cao.",
   keywords: [
     "Mobile Developer",
     "Flutter",
     "React Native",
     "Fintech",
     "Nguyen Xuan Trong",
+    "Nguyễn Xuân Trọng",
   ],
-  authors: [{ name: "Nguyen Xuan Trong" }],
+  authors: [{ name: "Nguyễn Xuân Trọng" }],
+  icons: {
+    icon: "/images/profile.png",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
-    title: "Nguyen Xuan Trong | Mobile Developer",
+    title: "Nguyễn Xuân Trọng | Mobile Developer",
     description:
       "Mobile Developer specializing in Flutter and React Native with Fintech experience.",
     type: "website",
+    images: ["/images/profile.png"],
   },
 };
 
@@ -40,9 +47,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${syne.variable} ${dmSans.variable} scroll-smooth`}>
-      <body className="min-h-screen bg-[#060b14] font-sans text-slate-300 antialiased">
-        {children}
+    <html lang="vi" className={`${syne.variable} ${dmSans.variable} scroll-smooth`} suppressHydrationWarning>
+      <body className="min-h-screen bg-[#040810] font-sans text-slate-300 antialiased">
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );
