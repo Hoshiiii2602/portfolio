@@ -6,6 +6,7 @@ import { getNavLinks } from "@/lib/i18n";
 import { useLanguage } from "@/components/LanguageProvider";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import CvDownload from "@/components/CvDownload";
+import RippleLink from "@/components/RippleLink";
 
 export default function Navbar() {
   const { locale, t } = useLanguage();
@@ -72,12 +73,13 @@ export default function Navbar() {
         <div className="hidden items-center gap-3 md:flex">
           <LanguageSwitcher compact />
           <CvDownload variant="compact" />
-          <a
+          <RippleLink
             href="#contact"
-            className="rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 px-5 py-2 text-sm font-medium text-white shadow-lg shadow-cyan-500/20 transition-all hover:scale-105 hover:shadow-cyan-500/40"
+            rippleColor="rgba(255, 255, 255, 0.45)"
+            className="rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 px-5 py-2 text-sm font-medium text-white shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40"
           >
             {t.nav.getInTouch}
-          </a>
+          </RippleLink>
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
@@ -120,13 +122,14 @@ export default function Navbar() {
           <div className="mt-4">
             <CvDownload />
           </div>
-          <a
+          <RippleLink
             href="#contact"
             onClick={closeMenu}
+            rippleColor="rgba(255, 255, 255, 0.45)"
             className="mt-4 w-full rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 px-6 py-4 text-center text-lg font-medium text-white"
           >
             {t.nav.getInTouch}
-          </a>
+          </RippleLink>
         </div>
       </div>
     </header>

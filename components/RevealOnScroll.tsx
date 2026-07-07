@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useIsMobile, usePrefersReducedMotion } from "@/lib/hooks";
 
 type RevealOnScrollProps = {
   children: ReactNode;
@@ -15,12 +16,19 @@ export default function RevealOnScroll({
   className = "",
   delay = 0,
   direction = "up",
-  duration = 1000,
+  duration = 800,
 }: RevealOnScrollProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const reducedMotion = usePrefersReducedMotion();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
+    if (reducedMotion) {
+      setVisible(true);
+      return;
+    }
+
     const el = ref.current;
     if (!el) return;
 
@@ -31,12 +39,12 @@ export default function RevealOnScroll({
           observer.unobserve(el);
         }
       },
-      { threshold: 0.08, rootMargin: "0px 0px -5% 0px" },
+      { threshold: 0.06, rootMargin: "0px 0px -4% 0px" },
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion]);
 
   const directionClass = {
     up: "reveal-up",
@@ -45,40 +53,18 @@ export default function RevealOnScroll({
     scale: "reveal-scale",
   }[direction];
 
+  const blurClass = isMobile ? "reveal-no-blur" : "";
+
   return (
     <div
       ref={ref}
-      className={`reveal ${directionClass} ${visible ? "reveal-visible" : ""} ${className}`}
+      className={`reveal ${directionClass} ${blurClass} ${visible ? "reveal-visible" : ""} ${className}`}
       style={{
-        transitionDelay: `${delay}ms`,
-        transitionDuration: `${duration}ms`,
+        transitionDelay: reducedMotion ? "0ms" : `${delay}ms`,
+        transitionDuration: reducedMotion ? "0ms" : `${duration}ms`,
       }}
     >
       {children}
-    </div>
-  );
-}
-
-type StaggerRevealProps = {
-  children: ReactNode[];
-  className?: string;
-  stagger?: number;
-  direction?: "up" | "left" | "right" | "scale";
-};
-
-export function StaggerReveal({
-  children,
-  className = "",
-  stagger = 100,
-  direction = "up",
-}: StaggerRevealProps) {
-  return (
-    <div className={className}>
-      {children.map((child, i) => (
-        <RevealOnScroll key={i} delay={i * stagger} direction={direction}>
-          {child}
-        </RevealOnScroll>
-      ))}
     </div>
   );
 }

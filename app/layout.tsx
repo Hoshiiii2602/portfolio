@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { DM_Sans, Syne } from "next/font/google";
+import { DM_Sans, Syne, Geist } from "next/font/google";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const syne = Syne({
   variable: "--font-syne",
@@ -16,6 +19,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://nguyenxuantrong.dev",
+  ),
   title: "Nguyễn Xuân Trọng | Mobile Developer",
   description:
     "Mobile Developer chuyên Flutter và React Native. Kinh nghiệm Fintech, dữ liệu realtime và sản phẩm mobile hiệu năng cao.",
@@ -47,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" className={`${syne.variable} ${dmSans.variable} scroll-smooth`} suppressHydrationWarning>
+    <html lang="vi" className={cn("scroll-smooth", syne.variable, dmSans.variable, "font-sans", geist.variable)} suppressHydrationWarning>
       <body className="min-h-screen bg-[#040810] font-sans text-slate-300 antialiased">
         <LanguageProvider>{children}</LanguageProvider>
       </body>

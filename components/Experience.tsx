@@ -2,16 +2,17 @@
 
 import SectionTitle from "@/components/SectionTitle";
 import RevealOnScroll from "@/components/RevealOnScroll";
+import SpotlightCard from "@/components/SpotlightCard";
 import { useLanguage } from "@/components/LanguageProvider";
 
 export default function Experience() {
   const { t } = useLanguage();
 
   return (
-    <section id="experience" className="relative py-20 sm:py-28">
+    <section id="experience" className="relative py-16 sm:py-28">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-cyan-500/[0.03] to-transparent" />
 
-      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-8">
         <SectionTitle
           label={t.experience.label}
           title={t.experience.title}
@@ -40,7 +41,11 @@ export default function Experience() {
                   </div>
                 </div>
 
-                <div className="glass-card rounded-2xl p-6 sm:p-8">
+                <SpotlightCard
+                  className="rounded-2xl"
+                  spotlightColor="rgba(6, 182, 212, 0.15)"
+                >
+                  <div className="glass-card rounded-2xl border-0 bg-transparent p-6 sm:p-8">
                   <h3 className="font-display text-xl font-semibold text-white sm:text-2xl">
                     {exp.role}
                   </h3>
@@ -65,7 +70,8 @@ export default function Experience() {
                       </li>
                     ))}
                   </ul>
-                </div>
+                  </div>
+                </SpotlightCard>
               </article>
             </RevealOnScroll>
           ))}

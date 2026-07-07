@@ -9,14 +9,16 @@ import Navbar from "@/components/Navbar";
 import Projects from "@/components/Projects";
 import SectionDivider from "@/components/SectionDivider";
 import Skills from "@/components/Skills";
+import TechMarquee from "@/components/TechMarquee";
 
 export default function Home() {
   return (
     <>
       <BackgroundDecor />
       <Navbar />
-      <main className="relative z-10">
+      <main className="relative z-10 overflow-x-clip">
         <Hero />
+        <TechMarquee />
         <SectionDivider />
         <About />
         <SectionDivider />
