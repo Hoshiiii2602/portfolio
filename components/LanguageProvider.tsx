@@ -21,23 +21,24 @@ const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 const STORAGE_KEY = "portfolio-locale";
 
+function readStoredLocale(): Locale {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  return stored === "en" ? "en" : "vi";
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>("vi");
-  const [mounted, setMounted] = useState(false);
 
+  // Hydrate locale from localStorage after mount (avoids SSR mismatch)
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY) as Locale | null;
-    if (stored === "vi" || stored === "en") {
-      setLocaleState(stored);
-    }
-    setMounted(true);
+    const stored = readStoredLocale();
+    setLocaleState((current) => (current === stored ? current : stored));
   }, []);
 
   useEffect(() => {
-    if (!mounted) return;
     document.documentElement.lang = locale;
     localStorage.setItem(STORAGE_KEY, locale);
-  }, [locale, mounted]);
+  }, [locale]);
 
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next);

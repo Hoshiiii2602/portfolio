@@ -19,15 +19,13 @@ export default function RevealOnScroll({
   duration = 800,
 }: RevealOnScrollProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [intersected, setIntersected] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
   const isMobile = useIsMobile();
+  const visible = reducedMotion || intersected;
 
   useEffect(() => {
-    if (reducedMotion) {
-      setVisible(true);
-      return;
-    }
+    if (reducedMotion) return;
 
     const el = ref.current;
     if (!el) return;
@@ -35,7 +33,7 @@ export default function RevealOnScroll({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setVisible(true);
+          setIntersected(true);
           observer.unobserve(el);
         }
       },

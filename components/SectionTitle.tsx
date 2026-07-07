@@ -1,6 +1,5 @@
 "use client";
 
-import { useLanguage } from "@/components/LanguageProvider";
 import RevealOnScroll from "@/components/RevealOnScroll";
 
 type SectionTitleProps = {
