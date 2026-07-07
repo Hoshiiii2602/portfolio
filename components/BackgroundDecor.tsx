@@ -6,6 +6,9 @@ import { useCoarsePointer, useIsMobile, usePageVisible, usePrefersReducedMotion 
 const Aurora = dynamic(() => import("@/components/Aurora"), { ssr: false });
 const Particles = dynamic(() => import("@/components/Particles"), { ssr: false });
 
+const AURORA_COLORS = ["#06b6d4", "#8b5cf6", "#ec4899"];
+const PARTICLE_COLORS = ["#22d3ee", "#a78bfa", "#f472b6"];
+
 export default function BackgroundDecor() {
   const reducedMotion = usePrefersReducedMotion();
   const coarsePointer = useCoarsePointer();
@@ -20,7 +23,7 @@ export default function BackgroundDecor() {
       {showWebGL && (
         <div className="absolute inset-x-0 top-0 h-[60vh] opacity-40 md:h-[70vh] md:opacity-50">
           <Aurora
-            colorStops={["#06b6d4", "#8b5cf6", "#ec4899"]}
+            colorStops={AURORA_COLORS}
             amplitude={0.85}
             blend={0.5}
             speed={0.6}
@@ -32,7 +35,7 @@ export default function BackgroundDecor() {
         <div className="absolute inset-0 opacity-30 lg:opacity-40">
           <Particles
             particleCount={60}
-            particleColors={["#22d3ee", "#a78bfa", "#f472b6"]}
+            particleColors={PARTICLE_COLORS}
             alphaParticles
             moveParticlesOnHover
             particleHoverFactor={0.6}
