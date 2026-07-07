@@ -15,7 +15,7 @@ export default function Contact() {
         <div className="absolute bottom-0 left-1/2 h-[24rem] w-[48rem] -translate-x-1/2 rounded-full bg-gradient-to-t from-cyan-500/10 via-violet-500/5 to-transparent blur-3xl" />
       </div>
 
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-8">
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <RevealOnScroll direction="scale">
           <SpotlightCard
             className="rounded-3xl"

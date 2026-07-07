@@ -76,7 +76,7 @@ export default function Skills() {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-violet-500/[0.03] to-transparent" />
       <div className="pointer-events-none absolute right-0 top-1/4 h-px w-1/3 rotate-[-8deg] bg-gradient-to-r from-violet-500/20 to-transparent" />
 
-      <div className="relative mx-auto max-w-6xl px-4 sm:px-8">
+      <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
         <SectionTitle
           label={t.skills.label}
           title={t.skills.title}

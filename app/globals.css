@@ -57,6 +57,32 @@ html {
   scroll-behavior: smooth;
 }
 
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* Pause heavy animations while scrolling for smoother frames */
+html.is-scrolling .profile-avatar-ring,
+html.is-scrolling .profile-avatar-mobile,
+html.is-scrolling .profile-avatar-desktop,
+html.is-scrolling body::after {
+  animation-play-state: paused;
+}
+
+html.is-scrolling header {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
 body {
   background-color: #040810;
   color: #cbd5e1;
@@ -351,6 +377,7 @@ body::after {
 
 /* ── Ripple button (water wave) ── */
 .ripple-btn {
+  display: flex;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
@@ -394,6 +421,51 @@ body::after {
   }
 }
 
+/* ── Profile avatar mobile ── */
+.profile-avatar-mobile {
+  animation: float 5s ease-in-out infinite;
+}
+
+.avatar-morph-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Mobile: hero image circle fades as morph layer takes over */
+html.avatar-morph-active .profile-avatar-hero {
+  opacity: calc(1 - clamp(0, var(--avatar-scroll-progress, 0) * 2.5, 1));
+}
+
+html.avatar-morph-active .profile-avatar-mobile .profile-avatar-ring,
+html.avatar-morph-active .profile-avatar-mobile > span:last-child {
+  opacity: calc(1 - clamp(0, var(--avatar-scroll-progress, 0) * 2, 1));
+}
+
+html.avatar-morph-complete .nav-avatar-slot {
+  border-color: transparent;
+  background: transparent;
+}
+
+html.avatar-morph-complete .avatar-morph-layer {
+  border-width: 0;
+  box-shadow: none;
+}
+
+.profile-avatar-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #06b6d4, #8b5cf6, #ec4899, #06b6d4);
+  animation: spin-slow 6s linear infinite;
+  opacity: 0.7;
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+}
+
+.profile-avatar-desktop {
+  animation: float 6s ease-in-out infinite;
+}
+
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -404,6 +476,9 @@ body::after {
   .reveal { opacity: 1; transform: none; filter: none; }
   .ripple-btn:active { transform: none; }
   .ripple-wave { animation: none; opacity: 0; }
+  .profile-avatar-mobile,
+  .profile-avatar-desktop { animation: none; }
+  .profile-avatar-ring { animation: none; }
 }
 
 :root {

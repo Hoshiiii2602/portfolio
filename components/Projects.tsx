@@ -10,7 +10,7 @@ export default function Projects() {
 
   return (
     <section id="projects" className="relative py-16 sm:py-28">
-      <div className="mx-auto max-w-6xl px-4 sm:px-8">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionTitle
           label={t.projectsMeta.label}
           title={t.projectsMeta.title}
